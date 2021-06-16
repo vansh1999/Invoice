@@ -39,6 +39,8 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import {db} from '../firebase'
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
 
 const drawerWidth = 240;
 
@@ -70,6 +72,12 @@ const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 700,
   },
+  deleteBtn : {
+    
+  },
+  editBtn:{
+
+  }
 }));
 
 export default function Dashboard({user}) {
@@ -133,7 +141,7 @@ export default function Dashboard({user}) {
         userinvoices : [...myinvoices , invoiceInput ]
       })
       setInvoiceInput('')
-      alert('client added to invoice')
+      alert('Invoice added!')
       handleClose()
 
     }
@@ -164,6 +172,26 @@ export default function Dashboard({user}) {
     
 
     // end table
+
+    // Delete invoive function
+
+    const deleteInvoice = (rowNum) => {
+      console.log("Delete" , rowNum)
+
+      const docRef = db.collection('invoices').doc(user.uid)
+      docRef.get().then(docSnap => {
+        // Filter userinvoice which has same invoiceid as of delete invoiceid
+        const result = docSnap.data().userinvoices.filter((invoice) => { return invoice.invoiceid != rowNum.invoiceid})
+        console.log("Result " , result)
+        // Update result/userinvoice with removed object
+        docRef.update({
+          userinvoices : result
+        })
+      })
+
+      alert("Invoice deleted!")
+      
+    }
 
 
   return (
@@ -394,6 +422,8 @@ export default function Dashboard({user}) {
             <StyledTableCell align="right">Notes</StyledTableCell>
             <StyledTableCell align="right">Due date</StyledTableCell>
             <StyledTableCell align="right">Status</StyledTableCell>
+            <StyledTableCell align="right"></StyledTableCell>
+            {/* <StyledTableCell align="right"></StyledTableCell> */}
           </TableRow>
         </TableHead>
         <TableBody>
@@ -409,9 +439,18 @@ export default function Dashboard({user}) {
               <StyledTableCell align="right">{row.notes}</StyledTableCell>
               <StyledTableCell align="right">{row.duedate}</StyledTableCell>
               <StyledTableCell align="right">{row.status}</StyledTableCell>
+              <StyledTableCell align="right">
+                <Button size="large" className={classes.deleteBtn} onClick={() => deleteInvoice(row)}> 
+                <DeleteIcon/>
+                </Button>
+              </StyledTableCell>
+              {/* <StyledTableCell align="right"><Button size="large" className={classes.editBtn}>
+                <EditIcon/>
+              </Button></StyledTableCell> */}
             </StyledTableRow>
           ))}
         </TableBody>
+        
       </Table>
 
     </TableContainer>
