@@ -1,3 +1,21 @@
+# Assignment - Invoicing app
+
+https://github.com/taxadda/frontend-assignment
+
+# Link
+
+https://invoice-5dd66.web.app/
+
+# Frontend - React
+
+![dashboard](https://user-images.githubusercontent.com/39709733/122409836-15f51680-cfa1-11eb-958b-d4e3b701e170.png)
+
+![addnew](https://user-images.githubusercontent.com/39709733/122410000-3329e500-cfa1-11eb-84a7-35bad6678757.png)
+
+# Backend - Firebase
+
+![firebase](https://user-images.githubusercontent.com/39709733/122410094-42a92e00-cfa1-11eb-8db8-8cf2af6ebb18.png)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
